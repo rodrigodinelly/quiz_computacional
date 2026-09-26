@@ -23,6 +23,16 @@ múltipla escolha.
 
 Não há frameworks, backend, banco de dados, autenticação ou dependências externas.
 
+## Publicação no GitHub Pages
+
+O workflow `.github/workflows/deploy-pages.yml` publica o site automaticamente a cada envio para a
+branch `main`.
+
+No GitHub, abra **Settings → Pages**, selecione **GitHub Actions** em *Build and deployment* e salve.
+Após o próximo push, o site ficará disponível em:
+
+`https://rodrigodinelly.github.io/quiz_computacional/`
+
 
 ## Estrutura do projeto
 
