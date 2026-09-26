@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "enunciado": "Qual componente é considerado o 'cérebro' do computador, responsável pelo processamento de instruções?",
+    "alternativas": [
+      { "id": "a", "texto": "Memória RAM" },
+      { "id": "b", "texto": "Unidade Central de Processamento (CPU)" },
+      { "id": "c", "texto": "Disco Rígido (HD/SSD)" },
+      { "id": "d", "texto": "Placa de Vídeo (GPU)" }
+    ],
+    "alternativaCorretaId": "b"
+  },
+  {
+    "id": 2,
+    "enunciado": "Qual das opções abaixo é um exemplo de sistema operacional de código aberto?",
+    "alternativas": [
+      { "id": "a", "texto": "Microsoft Windows" },
+      { "id": "b", "texto": "macOS" },
+      { "id": "c", "texto": "Linux" },
+      { "id": "d", "texto": "MS-DOS" }
+    ],
+    "alternativaCorretaId": "c"
+  },
+  {
+    "id": 3,
+    "enunciado": "Qual tipo de memória é volátil e perde seus dados quando o computador é desligado?",
+    "alternativas": [
+      { "id": "a", "texto": "Memória ROM" },
+      { "id": "b", "texto": "Memória RAM" },
+      { "id": "c", "texto": "Unidade de Estado Sólido (SSD)" },
+      { "id": "d", "texto": "Pen Drive USB" }
+    ],
+    "alternativaCorretaId": "b"
+  },
+  {
+    "id": 4,
+    "enunciado": "O que significa a sigla HTML na computação e desenvolvimento web?",
+    "alternativas": [
+      { "id": "a", "texto": "HyperText Markup Language" },
+      { "id": "b", "texto": "High Technical Machine Language" },
+      { "id": "c", "texto": "Hyperlink Text Management Logic" },
+      { "id": "d", "texto": "Home Tool Markup Language" }
+    ],
+    "alternativaCorretaId": "a"
+  },
+  {
+    "id": 5,
+    "enunciado": "Quantos bits existem em exatamente 1 Byte?",
+    "alternativas": [
+      { "id": "a", "texto": "4 bits" },
+      { "id": "b", "texto": "8 bits" },
+      { "id": "c", "texto": "16 bits" },
+      { "id": "d", "texto": "32 bits" }
+    ],
+    "alternativaCorretaId": "b"
+  },
+  {
+    "id": 6,
+    "enunciado": "Qual o protocolo padrão utilizado para transferência de páginas web na internet com segurança (criptografado)?",
+    "alternativas": [
+      { "id": "a", "texto": "FTP" },
+      { "id": "b", "texto": "HTTP" },
+      { "id": "c", "texto": "HTTPS" },
+      { "id": "d", "texto": "SMTP" }
+    ],
+    "alternativaCorretaId": "c"
+  },
+  {
+    "id": 7,
+    "enunciado": "Na lógica de programação, qual estrutura condicional executa um bloco de código apenas se uma condição for verdadeira?",
+    "alternativas": [
+      { "id": "a", "texto": "Estrutura IF (Se)" },
+      { "id": "b", "texto": "Laço FOR (Para)" },
+      { "id": "c", "texto": "Laço WHILE (Enquanto)" },
+      { "id": "d", "texto": "Operador PRINT (Imprimir)" }
+    ],
+    "alternativaCorretaId": "a"
+  },
+  {
+    "id": 8,
+    "enunciado": "Qual dispositivo é responsável por conectar diferentes redes de computadores e rotear os pacotes de dados?",
+    "alternativas": [
+      { "id": "a", "texto": "Monitor" },
+      { "id": "b", "texto": "Teclado" },
+      { "id": "c", "texto": "Roteador" },
+      { "id": "d", "texto": "Fonte de Alimentação" }
+    ],
+    "alternativaCorretaId": "c"
+  },
+  {
+    "id": 9,
+    "enunciado": "Qual linguagem de programação é amplamente conhecida como a linguagem nativa dos navegadores web para interatividade?",
+    "alternativas": [
+      { "id": "a", "texto": "Python" },
+      { "id": "b", "texto": "Java" },
+      { "id": "c", "texto": "C++" },
+      { "id": "d", "texto": "JavaScript" }
+    ],
+    "alternativaCorretaId": "d"
+  },
+  {
+    "id": 10,
+    "enunciado": "O que é um algoritmo no contexto da ciência da computação?",
+    "alternativas": [
+      { "id": "a", "texto": "Um componente físico interno da placa-mãe" },
+      { "id": "b", "texto": "Uma sequência finita de passos lógicos para resolver um problema" },
+      { "id": "c", "texto": "Um tipo específico de vírus de computador" },
+      { "id": "d", "texto": "Uma marca de processadores de alta velocidade" }
+    ],
+    "alternativaCorretaId": "b"
+  }
+]

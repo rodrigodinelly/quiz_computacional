@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "BancoDeQuestoesQuiz",
+  "description": "Esquema JSON de validação para o banco local de questões do Quiz Computacional.",
+  "type": "array",
+  "minItems": 10,
+  "maxItems": 10,
+  "items": {
+    "type": "object",
+    "required": [
+      "id",
+      "enunciado",
+      "alternativas",
+      "alternativaCorretaId"
+    ],
+    "properties": {
+      "id": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "enunciado": {
+        "type": "string",
+        "minLength": 5
+      },
+      "alternativas": {
+        "type": "array",
+        "minItems": 4,
+        "maxItems": 4,
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "texto"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "texto": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "alternativaCorretaId": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "additionalProperties": false
+  }
+}
