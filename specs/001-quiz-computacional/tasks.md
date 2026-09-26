@@ -1,137 +1,113 @@
-# Tasks: Quiz Computacional - Aplicação Educacional Base
+# Tarefas: Quiz Computacional
 
-**Feature**: Quiz Computacional | **Branch**: `001-quiz-computacional`
+**Entrada**: Documentos em `specs/001-quiz-computacional/`
+**Pré-requisitos**: `plan.md`, `spec.md`, `research.md`, `data-model.md`, contrato JSON e `quickstart.md`
 
-**Spec**: [spec.md](./spec.md) | **Plan**: [plan.md](./plan.md)
+## Fase 1: Configuração
 
----
+**Objetivo**: criar a estrutura estática prevista no plano.
 
-## Phase 1: Setup (Shared Infrastructure)
-
-**Purpose**: Project initialization and basic structure
-
-- [x] T001 Initialize Next.js project with App Router, TypeScript, and Tailwind CSS configuration in package.json, tsconfig.json, and tailwind.config.ts
-- [x] T002 [P] Configure Vitest and React Testing Library setup in vitest.config.ts and tests/setup.ts
-- [x] T003 [P] Setup global CSS styling and color palette suitable for students in src/app/globals.css
+- [x] T001 Criar `index.html`, `css/styles.css`, `data/questions.json`, `js/app.js`, `js/quiz.js` e `tests/quiz.test.js` nos caminhos definidos em `specs/001-quiz-computacional/plan.md`.
+- [x] T002 [P] Criar a estrutura semântica inicial da interface em `index.html`, incluindo regiões para início, questão, feedback, resultado e erro.
+- [x] T003 [P] Criar a base visual responsiva mobile-first em `css/styles.css` com foco visível, contraste adequado e áreas de toque utilizáveis.
+- [x] T004 [P] Configurar em `tests/quiz.test.js` um executor sem dependências para os testes unitários do módulo `js/quiz.js`.
 
 ---
 
-## Phase 2: Foundational (Blocking Prerequisites)
+## Fase 2: Fundamentos
 
-**Purpose**: Core data models and static JSON database that MUST be complete before user story work
+**Objetivo**: disponibilizar dados válidos e regras puras que bloqueiam todos os fluxos do quiz.
 
-- [x] T004 Create domain TypeScript interfaces (`Alternativa`, `Questao`, `SessaoQuiz`, `RespostaEstudante`) in src/types/quiz.ts
-- [x] T005 [P] Populate the static 10 questions database in src/data/questions.json ensuring each entry has alternatives length equal to 4 and a valid alternativaCorretaId
+- [x] T005 Criar as 10 questões iniciais em `data/questions.json` conforme `specs/001-quiz-computacional/contracts/questions-json.md`.
+- [x] T006 Implementar em `js/quiz.js` a validação do contrato: `version` igual a `1`, exatamente 10 questões, IDs únicos, enunciados não vazios, exatamente quatro alternativas com IDs e textos únicos, e `alternativaCorretaId` correspondente a uma alternativa.
+- [x] T007 Implementar em `js/quiz.js` o estado da tentativa com `carregando`, `respondendo`, `feedback` e `concluído`, índice de 0 a 9, respostas e acertos.
+- [x] T008 Implementar em `js/quiz.js` as operações puras para selecionar, confirmar uma única vez, avançar e reiniciar somente no estado `concluído`.
+- [x] T009 Escrever em `tests/quiz.test.js` testes para validação do JSON, quatro alternativas, uma resposta correta, estados, bloqueio de confirmação sem seleção e ausência de pontuação duplicada.
 
-**Checkpoint**: Foundation ready - user story implementation can now begin
-
----
-
-## Phase 3: User Story 1 - Responder Questões do Quiz (Priority: P1) 🎯 MVP
-
-**Goal**: Enable students to answer 10 multiple-choice questions on computing basics, one at a time, receiving immediate feedback (with correct answer highlighting on error) and advancing sequentially.
-
-**Independent Test**: Start quiz, select an option, change selection before confirming, click confirm, verify feedback/gabarito, and advance to question 2.
-
-### Tests for User Story 1
-
-- [x] T006 [P] [US1] Create unit tests for useQuiz state machine (navigating questions, option selection, answer locking, and feedback) in tests/hooks/useQuiz.test.ts
-- [x] T007 [P] [US1] Create component tests for QuestionCard in tests/components/QuestionCard.test.tsx
-
-### Implementation for User Story 1
-
-- [x] T008 [US1] Implement useQuiz hook state logic (indiceQuestaoAtual, opcaoEmSelecao, respostas, selecionarOpcao, confirmarResposta, proximaQuestao) in src/hooks/useQuiz.ts
-- [x] T009 [P] [US1] Implement Header component in src/components/Header.tsx
-- [x] T010 [P] [US1] Implement ProgressBar component showing current step (1 to 10) in src/components/ProgressBar.tsx
-- [x] T011 [P] [US1] Implement QuestionCard component (rendering statement and 4 selectable option buttons) in src/components/QuestionCard.tsx
-- [x] T012 [P] [US1] Implement FeedbackCard component (displaying "Correto" / "Incorreto" status and highlighting the correct answer ID as gabarito) in src/components/FeedbackCard.tsx
-- [x] T013 [US1] Assemble User Story 1 UI components in src/app/page.tsx rendering active question, feedback card, and action buttons
-
-**Checkpoint**: User Story 1 is fully functional and testable independently (MVP ready!)
+**Ponto de controle**: dados inválidos não iniciam o quiz e a lógica pode ser verificada sem o DOM.
 
 ---
 
-## Phase 4: User Story 2 - Visualizar Resultado Final e Desempenho (Priority: P2)
+## Fase 3: História de Usuário 1 — Responder ao quiz (P1) 🎯 MVP
 
-**Goal**: Display final results screen upon completing the 10th question showing total hits, total misses, and exact percentage score.
+**Objetivo**: permitir iniciar, selecionar uma alternativa, confirmar e receber feedback.
 
-**Independent Test**: Complete all 10 questions and verify the final screen displays exact count of hits, misses, and percentage calculated via formula Math.round((acertos / 10) * 100).
+**Teste independente**: iniciar uma tentativa, responder uma questão de quatro alternativas, confirmar e
+receber feedback de correto ou incorreto.
 
-### Tests for User Story 2
+- [x] T010 [US1] Implementar em `js/app.js` o carregamento de `data/questions.json` por HTTP estático e a mensagem clara para falha de carregamento ou dados inválidos.
+- [x] T011 [US1] Implementar em `js/app.js` a renderização de uma questão por vez com `<fieldset>`, `<legend>`, quatro botões de opção e rótulos em `index.html`.
+- [x] T012 [US1] Implementar em `js/app.js` a seleção e a confirmação, mantendo a confirmação indisponível até haver uma alternativa selecionada.
+- [x] T013 [US1] Implementar em `js/app.js` o feedback textual acessível de resposta correta ou incorreta, bloquear a alteração da resposta confirmada e mover o foco para o feedback.
+- [x] T014 [US1] Estilizar em `css/styles.css` as alternativas, estados selecionado e bloqueado, botão de confirmação e feedback sem depender apenas de cor.
+- [x] T015 [US1] Validar a História de Usuário 1 pelo roteiro de `specs/001-quiz-computacional/quickstart.md`.
 
-- [x] T014 [P] [US2] Create component test for ScoreSummary in tests/components/ScoreSummary.test.tsx
-
-### Implementation for User Story 2
-
-- [x] T015 [US2] Extend useQuiz hook in src/hooks/useQuiz.ts to transition status to 'CONCLUIDO' after 10th question and compute acertos, erros, and percentualAcertos
-- [x] T016 [P] [US2] Implement ScoreSummary component in src/components/ScoreSummary.tsx displaying hits count, misses count, and percentage score
-- [x] T017 [US2] Integrate ScoreSummary view into src/app/page.tsx when status is 'CONCLUIDO'
-
-**Checkpoint**: User Stories 1 AND 2 work independently
+**Ponto de controle**: o estudante consegue responder uma questão válida e obter feedback imediato.
 
 ---
 
-## Phase 5: User Story 3 - Reiniciar o Quiz (Priority: P3)
+## Fase 4: História de Usuário 2 — Avançar entre questões (P2)
 
-**Goal**: Allow students to restart the quiz from the final results screen, resetting state to question 1 and zeroing scores while keeping the static question order.
+**Objetivo**: permitir avançar linearmente somente após o feedback, até a conclusão da décima questão.
 
-**Independent Test**: Click "Reiniciar Quiz" button on results screen and verify return to Question 1 of 10 with zeroed scores and history.
+**Teste independente**: confirmar uma resposta, avançar para a questão seguinte e chegar ao estado final após a décima resposta.
 
-### Implementation for User Story 3
+- [x] T016 [US2] Implementar em `js/app.js` o controle de avanço disponível somente no estado `feedback` e a atualização da questão atual.
+- [x] T017 [US2] Implementar em `js/app.js` a transição da décima questão para o estado de resultado, sem criar uma questão adicional.
+- [x] T018 [US2] Exibir em `index.html` e `js/app.js` a posição atual de forma compreensível, mantendo o foco no enunciado após cada avanço.
+- [x] T019 [US2] Adicionar em `tests/quiz.test.js` testes das transições `feedback → respondendo` e `feedback → concluído`.
+- [x] T020 [US2] Validar em `specs/001-quiz-computacional/quickstart.md` o fluxo de avanço e a conclusão após 10 questões.
 
-- [x] T018 [US3] Add reiniciarQuiz action to useQuiz hook in src/hooks/useQuiz.ts resetting session state to question index 0 while maintaining static question order
-- [x] T019 [US3] Add "Reiniciar Quiz" action button to ScoreSummary in src/components/ScoreSummary.tsx triggering reiniciarQuiz
-
-**Checkpoint**: All user stories are independently functional
-
----
-
-## Phase 6: Polish & Cross-Cutting Concerns
-
-**Purpose**: Responsive design refinements and end-to-end validation
-
-- [x] T020 [P] Refine responsive design for mobile screens (<640px) and desktop layouts in src/app/globals.css
-- [x] T021 Run quickstart.md validation scenarios to confirm feature readiness
+**Ponto de controle**: o estudante avança em sequência, sem editar respostas anteriores, e alcança o resultado após 10 questões.
 
 ---
 
-## Dependencies & Execution Order
+## Fase 5: História de Usuário 3 — Resultado e reinício (P3)
 
-### Phase Dependencies
+**Objetivo**: mostrar desempenho final e iniciar uma nova tentativa somente no resultado.
 
-- **Setup (Phase 1)**: No dependencies - can start immediately
-- **Foundational (Phase 2)**: Depends on Setup completion - BLOCKS all user stories
-- **User Stories (Phase 3+)**: All depend on Foundational phase completion
-  - Proceed sequentially in priority order (P1 → P2 → P3) or in parallel if staffed
-- **Polish (Phase 6)**: Depends on completion of User Stories 1, 2, and 3
+**Teste independente**: concluir 10 questões, conferir acertos, erros e percentual, e reiniciar com estado zerado.
 
-### User Story Dependencies
+- [x] T021 [US3] Implementar em `js/quiz.js` o cálculo final: `erros = 10 - acertos` e `percentualAcertos = (acertos / 10) × 100`.
+- [x] T022 [US3] Implementar em `js/app.js` a tela de resultado com quantidade de acertos, erros, percentual e a ação de reiniciar.
+- [x] T023 [US3] Implementar em `js/app.js` a ação de reiniciar somente no estado `concluído`, retornando à primeira questão com respostas e pontuação zeradas.
+- [x] T024 [US3] Adicionar em `tests/quiz.test.js` testes para acertos, erros, percentual, reinício permitido no resultado e reinício bloqueado durante a tentativa.
+- [x] T025 [US3] Estilizar em `css/styles.css` a tela de resultado e o reinício para desktop e smartphone.
+- [x] T026 [US3] Validar em `specs/001-quiz-computacional/quickstart.md` os resultados para zero, parte e total de acertos, e o reinício.
 
-- **User Story 1 (P1)**: Starts after Foundational (Phase 2)
-- **User Story 2 (P2)**: Starts after Foundational (Phase 2) and extends `useQuiz` state for completion
-- **User Story 3 (P3)**: Starts after US2 and connects restart trigger to `useQuiz`
-
-### Parallel Opportunities
-
-- All Setup tasks marked `[P]` (T002, T003) can run in parallel
-- Foundational task T005 `[P]` can run in parallel with T004
-- UI components within User Story 1 marked `[P]` (T006, T007, T009, T010, T011, T012) can run in parallel
-- ScoreSummary UI components marked `[P]` (T014, T016) can run in parallel
+**Ponto de controle**: o resultado representa corretamente a tentativa e o reinício não mantém dados anteriores.
 
 ---
 
-## Implementation Strategy
+## Fase 6: Acabamento e Verificação Integrada
 
-### MVP First (User Story 1 Only)
+- [x] T027 [P] Revisar em `index.html`, `css/styles.css` e `js/app.js` semântica, teclado, foco, regiões de anúncio e contraste conforme a constituição.
+- [x] T028 [P] Revisar em `js/quiz.js` a separação entre apresentação, dados e lógica e remover duplicações desnecessárias.
+- [x] T029 Executar todos os testes em `tests/quiz.test.js` e corrigir falhas.
+- [x] T030 Executar todos os cenários de `specs/001-quiz-computacional/quickstart.md` em desktop e smartphone.
+- [x] T031 Revisar `specs/001-quiz-computacional/checklists/pre-implementacao.md` e registrar achados de requisitos antes da entrega.
+- [x] T032 Medir em `specs/001-quiz-computacional/quickstart.md` que a primeira questão é apresentada em até 10 segundos após o início, conforme SC-001.
 
-1. Complete Phase 1: Setup (T001–T003)
-2. Complete Phase 2: Foundational (T004–T005)
-3. Complete Phase 3: User Story 1 (T006–T013)
-4. **STOP and VALIDATE**: Test User Story 1 independently
+## Dependências e Ordem de Execução
 
-### Incremental Delivery
+- A Fase 1 não possui dependências.
+- A Fase 2 depende da Fase 1 e bloqueia as histórias de usuário.
+- US1 depende da Fase 2; US2 depende de US1 porque amplia a mesma sessão de quiz; US3 depende de US2 para receber uma tentativa concluída.
+- A Fase 6 depende das três histórias.
 
-1. Setup + Foundational → Core Ready
-2. Add User Story 1 → Test independently → Deploy/Demo (MVP!)
-3. Add User Story 2 → Test results screen
-4. Add User Story 3 → Test restart feature
+## Oportunidades de Paralelismo
+
+- T002, T003 e T004 podem ocorrer em paralelo após T001.
+- T005 e T006 podem ocorrer em paralelo, desde que o contrato JSON seja seguido.
+- T027 e T028 podem ocorrer em paralelo após a conclusão das histórias.
+
+## Estratégia de Implementação
+
+1. Entregar o MVP com as Fases 1, 2 e 3: uma questão pode ser respondida com feedback.
+2. Adicionar a Fase 4 para concluir o fluxo linear de 10 questões.
+3. Adicionar a Fase 5 para resultados e reinício.
+4. Executar a Fase 6 como validação de qualidade e acessibilidade.
+
+## Phase 7: Convergence
+
+- [ ] T033 Adicionar em `index.html` e `js/app.js` uma tela inicial com ação explícita para iniciar a tentativa após as questões serem carregadas, conforme FR-001 e US1/AC1 (partial).

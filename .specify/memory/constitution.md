@@ -1,55 +1,87 @@
 <!--
-SYNC IMPACT REPORT
-==================
-Version Change: 0.0.0 (Template) -> 1.0.0
-Modified Principles: Initialized core governance principles for Quiz Computacional.
-Added Sections:
-- Core Principles (I. Interface Simples, II. Código Organizado, III. Quatro Alternativas, IV. Unicidade de Resposta, V. Feedback Imediato, VI. Pontuação Automática, VII. Simplicidade Arquitetural, VIII. Verificabilidade)
-- Requisitos Educacionais e Usabilidade
-- Processo de Desenvolvimento e Garantia de Qualidade
-- Governance
-Removed Sections: None
-Deferred Items: None
+Relatório de Impacto de Sincronização
+- Alteração de versão: 1.0.0 -> 1.0.1
+- Princípios modificados: nenhum; tradução para português do Brasil
+- Seções adicionadas: nenhuma
+- Seções removidas: nenhuma
+- Pendências: nenhuma
 -->
+# Constituição do Quiz Computacional
 
-# Quiz Computacional Constitution
+## Princípios Fundamentais
 
-## Core Principles
+### I. Interface Centrada no Estudante
+A interface DEVE ser simples, clara e apropriada para estudantes. Telas, instruções e controles DEVEM
+usar linguagem compreensível e minimizar distrações para que a realização do quiz seja direta.
 
-### I. Interface Simples e Adequada a Estudantes
-A interface da aplicação DEVE ser limpa, intuitiva e acessível para estudantes, minimizando distrações visuais e priorizando a facilidade de navegação e foco no aprendizado.
+Justificativa: como a aplicação é educacional, a usabilidade deve apoiar a aprendizagem sem criar atrito.
 
-### II. Código Organizado, Legível e Mantável
-O código-fonte DEVE seguir padrões claros de organização, nomenclatura e legibilidade. A estrutura DEVE ser modular para garantir facilidade de manutenção e suporte a futuras expansões.
+### II. Código de Fácil Manutenção
+O código DEVE ser organizado em unidades coesas, usar nomes claros e permanecer legível para a
+manutenção rotineira. Alterações DEVEM evitar acoplamento e duplicação desnecessários.
+
+Justificativa: uma base de código sustentável permite que o conteúdo educacional e a aplicação evoluam
+com segurança.
 
 ### III. Quatro Alternativas por Questão
-Cada questão apresentada no Quiz Computacional DEVE possuir exatamente quatro opções de resposta/alternativas.
+Cada questão DEVE definir exatamente quatro alternativas de resposta. Uma questão com menos ou mais de
+quatro alternativas é inválida e NÃO DEVE ser apresentada a um estudante.
 
-### IV. Unicidade de Alternativa Correta
-Cada questão DEVE conter estritamente uma única alternativa correta entre as quatro opções disponíveis.
+Justificativa: um formato fixo proporciona aos estudantes uma experiência de avaliação consistente.
 
-### V. Feedback Imediato ao Estudante
-A aplicação DEVE fornecer feedback claro e imediato ao estudante após cada resposta submetida, informando o resultado da tentativa de forma construtiva.
+### IV. Exatamente Uma Resposta Correta
+Cada questão DEVE indicar exatamente uma alternativa correta. A validação de conteúdo DEVE rejeitar
+questões sem alternativa correta ou com mais de uma alternativa correta.
 
-### VI. Cálculo Automático de Pontuação
-O sistema DEVE calcular e exibir a pontuação do estudante de forma totalmente automática, precisa e transparente.
+Justificativa: respostas inequívocas são necessárias para oferecer feedback e pontuação justos.
 
-### VII. Simplicidade Arquitetural e Mínimas Dependências
-O projeto DEVE priorizar a simplicidade técnica, adotando os princípios KISS (Keep It Simple, Stupid) e YAGNI (You Aren't Gonna Need It), evitando bibliotecas e dependências externas desnecessárias.
+### V. Feedback Imediato da Resposta
+Após cada resposta enviada, a aplicação DEVE fornecer ao estudante um feedback que indique se a
+resposta estava correta antes que a próxima questão seja respondida.
 
-### VIII. Verificabilidade e Testabilidade Objetiva
-Todas as funcionalidades e regras de negócio DEVEM ser verificáveis por testes automatizados ou por critérios de aceitação claramente definidos e objetivos.
+Justificativa: o feedback oportuno reforça a aprendizagem e torna os resultados compreensíveis.
 
-## Requisitos Educacionais e Usabilidade
+### VI. Pontuação Automática
+A aplicação DEVE calcular automaticamente a pontuação do estudante com base nas respostas enviadas e
+nos gabaritos das questões. Estudantes NÃO DEVEM calcular nem informar sua própria pontuação.
 
-O Quiz Computacional é uma ferramenta focada no apoio ao processo educacional. As telas, fluxos de uso e elementos visuais DEVEM ser projetados para oferecer uma experiência inclusiva, simples e encorajadora para os alunos.
+Justificativa: a pontuação automática evita erros aritméticos e mantém resultados consistentes.
 
-## Processo de Desenvolvimento e Garantia de Qualidade
+### VII. Simplicidade Intencional
+O projeto DEVE preferir o design mais simples que atenda a um requisito declarado e DEVE evitar
+dependências desnecessárias. Uma dependência ou abstração adicional exige uma necessidade concreta e
+documentada.
 
-Todas as alterações no código DEVEM passar por validação de qualidade antes de integrações. Alterações no modelo de dados de questões, no fluxo de cálculo de pontuação ou na exibição do feedback DEVEM garantir a manutenção dos 8 princípios fundamentais.
+Justificativa: a simplicidade reduz o custo de manutenção e mantém a aplicação acessível a colaboradores.
 
-## Governance
+### VIII. Verificação Objetiva
+Todo recurso entregue DEVE possuir testes automatizados ou critérios de aceitação explícitos e
+objetivamente verificáveis. A validação DEVE cobrir o comportamento relevante, incluindo integridade
+de questões, feedback ou pontuação sempre que esses comportamentos forem alterados.
 
-Esta Constituição rege todas as decisões arquiteturais, de design e de implementação do Quiz Computacional. Qualquer funcionalidade ou refatoração DEVE estar em conformidade com este documento. Alterações constitucionais exigem atualização da data de emenda e incremento da versão conforme versionamento semântico (MAJOR para remoções ou quebras de princípios, MINOR para adições de novas seções/princípios, PATCH para refinamentos textuais).
+Justificativa: a verificação objetiva torna o comportamento educacional confiável e as regressões visíveis.
 
-**Version**: 1.0.0 | **Ratified**: 2026-09-25 | **Last Amended**: 2026-09-25
+## Integridade das Questões
+
+Os dados das questões e os fluxos de autoria DEVEM aplicar os Princípios III e IV antes de as questões
+ficarem disponíveis em um quiz. Dados inválidos DEVEM ser relatados claramente e excluídos das sessões
+de quiz voltadas ao estudante.
+
+## Desenvolvimento e Critérios de Qualidade
+
+Antes de uma alteração ser aceita, as pessoas revisoras DEVEM confirmar a conformidade com esta
+constituição. Alterações na experiência do quiz DEVEM ser verificadas conforme o princípio de interface
+centrada no estudante; alterações no tratamento de questões ou respostas DEVEM demonstrar, quando
+aplicável, quatro alternativas, uma resposta correta, feedback e pontuação automática. Complexidade e
+novas dependências DEVEM ser justificadas no registro da alteração.
+
+## Governança
+
+Esta constituição substitui práticas conflitantes do projeto. Emendas DEVEM ser documentadas neste
+arquivo, incluir um Relatório de Impacto de Sincronização e atualizar a versão conforme versionamento
+semântico: MAJOR para alterações de governança incompatíveis com versões anteriores, MINOR para
+governança nova ou materialmente ampliada e PATCH para esclarecimentos que não alterem o significado da
+governança. Toda revisão DEVE avaliar a conformidade com a constituição e registrar qualquer exceção
+aprovada, com sua justificativa e prazo de expiração ou plano de remoção.
+
+**Versão**: 1.0.1 | **Ratificada em**: 2026-09-26 | **Última alteração**: 2026-09-26

@@ -1,91 +1,81 @@
-# Implementation Plan: Quiz Computacional - Aplicação Educacional Base
+# Plano de Implementação: Quiz Computacional
 
-**Branch**: `001-quiz-computacional` | **Date**: 2026-09-26 | **Spec**: [spec.md](./spec.md)
+**Ramo**: `001-quiz-computacional` | **Data**: 2026-09-26 | **Especificação**: [spec.md](spec.md)
 
-**Input**: Feature specification from `/specs/001-quiz-computacional/spec.md`
+**Entrada**: Aplicação web estática em HTML5, CSS3 e JavaScript puro, com dados em JSON local.
 
-## Summary
+## Resumo
 
-Desenvolvimento de uma aplicação web educacional estática e responsiva utilizando **Next.js (App Router)**, **React**, **TypeScript** e **Tailwind CSS**. A aplicação exibirá 10 questões de múltipla escolha sobre conhecimentos básicos de Computação a partir de um arquivo **JSON local**, fornecendo feedback imediato a cada resposta e calculando o desempenho final do estudante. O código será rigidamente estruturado em três camadas limpas: **Apresentação** (Componentes React), **Dados** (JSON e Tipos) e **Lógica do Quiz** (Custom Hook `useQuiz`), operando integralmente no navegador sem backend, banco de dados ou autenticação.
+Implementar um quiz educacional com 10 questões, quatro alternativas por questão, feedback imediato,
+pontuação automática, resultado final e reinício apenas após a conclusão. A apresentação, os dados e a
+lógica serão mantidos separados, sem frameworks, backend, banco de dados ou autenticação.
 
-## Technical Context
+## Contexto Técnico
 
-**Language/Version**: TypeScript 5.x / Node.js 18+
+**Linguagem/Versão**: HTML5, CSS3 e JavaScript ECMAScript em navegadores modernos.
 
-**Primary Dependencies**: Next.js 14+ (App Router), React 18+, Tailwind CSS
+**Dependências Primárias**: Nenhuma; somente APIs padrão do navegador.
 
-**Storage**: Arquivo JSON estático local (`src/data/questions.json`)
+**Armazenamento**: `data/questions.json`, carregado em memória durante a tentativa; sem persistência.
 
-**Testing**: Vitest + React Testing Library
+**Testes**: Testes unitários sem dependências para validação, pontuação e estados; roteiro de aceitação em
+[quickstart.md](quickstart.md).
 
-**Target Platform**: Navegadores Web Modernos (Desktop e Smartphones)
+**Plataforma-alvo**: Desktop e smartphone em navegadores modernos, por HTTP estático.
 
-**Project Type**: Single Project Web Application (Client-Side Rendering / Static Export)
+**Tipo de Projeto**: Aplicação web estática, apenas frontend.
 
-**Performance Goals**: Carregamento inicial sob 500ms; resposta imediata a cliques (< 50ms)
+**Metas de Desempenho**: Exibir a primeira questão em até 10 segundos e responder às ações sem espera
+perceptível.
 
-**Constraints**: Sem backend, sem banco de dados, sem autenticação; exatamente 10 questões com 4 alternativas cada (1 única correta por questão).
+**Restrições**: Sem frameworks, backend, banco, autenticação, persistência ou dependências. O JSON tem
+exatamente 10 questões válidas, quatro alternativas e uma única correta por questão. Por restrições de
+segurança do navegador, o JSON externo deve ser carregado por HTTP estático; `file://` não é suportado.
 
-**Scale/Scope**: 10 questões estáticas, escopo de tela única interativa.
+**Escopo**: Uma sessão individual, ordem fixa, estados de carregamento, resposta, feedback e resultado;
+reinício somente após a conclusão.
 
-## Constitution Check
+## Verificação da Constituição
 
-*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
+*GATE: aprovado antes da pesquisa e reavaliado após o design.*
 
-- **Princípio I (Interface Simples e Estudantil)**: PASS - Design limpo com Tailwind CSS focado no aprendizado e acessibilidade em desktop/mobile.
-- **Princípio II (Código Organizado e Mantável)**: PASS - Separação estrita entre Apresentação (`src/components`), Dados (`src/data`, `src/types`) e Lógica (`src/hooks`).
-- **Princípio III (4 Alternativas por Questão)**: PASS - Validado no contrato `quiz-schema.json` e nas interfaces TypeScript.
-- **Princípio IV (Unicidade da Resposta Correta)**: PASS - Validado no esquema e na entidade `Questao`.
-- **Princípio V (Feedback Imediato)**: PASS - Suportado no estado do `useQuiz` e no componente `FeedbackCard`.
-- **Princípio VI (Cálculo Automático de Pontuação)**: PASS - Algoritmo integrado no hook com fórmula `(acertos / 10) * 100`.
-- **Princípio VII (Simplicidade e Mínimas Dependências)**: PASS - Sem backend, DB, Redux ou bibliotecas de terceiros desnecessárias.
-- **Princípio VIII (Verificabilidade por Testes)**: PASS - Testes automatizados cobrindo a lógica do hook `useQuiz` e componentes UI via Vitest + RTL.
+| Princípio | Atendimento |
+|---|---|
+| Interface centrada no estudante | Uma questão por vez, controles claros, feedback textual e layout responsivo. |
+| Código de fácil manutenção | Separação de apresentação, dados e lógica do quiz. |
+| Quatro alternativas e uma resposta correta | Contrato JSON e validação bloqueiam dados inválidos. |
+| Feedback e pontuação automática | Estados explícitos exibem feedback e impedem pontuação duplicada. |
+| Simplicidade intencional | Aplicação estática sem bibliotecas ou serviços. |
+| Verificação objetiva | Testes de lógica e roteiro de aceitação cobrem todas as regras centrais. |
 
-## Project Structure
+**Resultado pós-design**: aprovado; não há violações de complexidade.
 
-### Documentation (this feature)
+## Estrutura do Projeto
+
+### Documentação desta funcionalidade
 
 ```text
 specs/001-quiz-computacional/
-├── spec.md              # Especificação funcional refinada
-├── plan.md              # Este plano de implementação
-├── research.md          # Artefato da Fase 0 (Decisões Técnicas e Arquitetura)
-├── data-model.md        # Artefato da Fase 1 (Entidades de Domínio e Tipos)
-├── quickstart.md        # Artefato da Fase 1 (Guia de Execução e Testes)
-└── contracts/           # Artefato da Fase 1 (Esquema JSON do banco de dados local)
-    └── quiz-schema.json
+├── plan.md
+├── research.md
+├── data-model.md
+├── quickstart.md
+├── contracts/
+│   └── questions-json.md
+└── tasks.md
 ```
 
-### Source Code (repository root)
+### Código-fonte (raiz do repositório)
 
 ```text
-src/
-├── app/                      # Next.js App Router (Layout e Página Principal)
-│   ├── layout.tsx
-│   ├── page.tsx
-│   └── globals.css
-├── components/               # Camada 1: Apresentação (UI Components)
-│   ├── Header.tsx
-│   ├── ProgressBar.tsx
-│   ├── QuestionCard.tsx
-│   ├── FeedbackCard.tsx
-│   └── ScoreSummary.tsx
-├── data/                     # Camada 2: Dados (JSON Estático)
-│   └── questions.json
-├── hooks/                    # Camada 3: Lógica do Quiz (State Machine)
-│   └── useQuiz.ts
-└── types/                    # Definições de Tipos TypeScript
-    └── quiz.ts
-
-tests/                        # Testes Automatizados (Vitest + RTL)
-├── components/
-│   └── QuestionCard.test.tsx
-└── hooks/
-    └── useQuiz.test.ts
+index.html
+css/styles.css
+data/questions.json
+js/app.js
+js/quiz.js
+tests/quiz.test.js
 ```
 
-**Structure Decision**: Selecionada a estrutura de projeto único em Next.js com organização interna em subdiretórios funcionais para garantir o desacoplamento entre UI, Dados e Lógica do Domínio.
-
-## Complexity Tracking
-
-> Nenhuma violação aos princípios constitucionais identificada. Arquitetura mantida no nível mínimo de complexidade necessária (KISS / YAGNI).
+**Decisão de estrutura**: `index.html` e `css/styles.css` representam a apresentação;
+`data/questions.json` contém os dados; `js/quiz.js` implementa regras puras e estados; `js/app.js`
+integra a lógica com o DOM. Isso permite testar as regras sem navegador.

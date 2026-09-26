@@ -1,106 +1,152 @@
-# Feature Specification: Quiz Computacional - Aplicação Educacional Base
+# Especificação da Funcionalidade: Quiz Computacional
 
-**Feature Branch**: `001-quiz-computacional`
+**Ramo da Funcionalidade**: `001-quiz-computacional`
 
-**Created**: 2026-09-26
+**Criada em**: 2026-09-26
 
-**Status**: Draft
+**Status**: Rascunho
 
-**Input**: User description: "Desenvolver uma aplicação educacional chamada Quiz Computacional. A aplicação permitirá que um estudante pratique conhecimentos básicos de Computação respondendo questões de múltipla escolha. Ao iniciar o quiz, o estudante deverá visualizar uma questão por vez. Cada questão deverá apresentar: o enunciado; quatro alternativas; apenas uma alternativa correta. O estudante deverá selecionar uma alternativa e confirmar sua resposta. O quiz terá inicialmente 10 questões. Depois da confirmação, a aplicação deverá informar se a resposta está correta ou incorreta. O estudante poderá então avançar para a próxima questão. Ao finalizar todas as questões, a aplicação deverá apresentar: quantidade de acertos; quantidade de erros; percentual de acertos. O estudante deverá poder reiniciar o quiz. Não haverá cadastro ou autenticação nesta primeira versão."
+**Entrada**: Descrição do usuário: "Desenvolver uma aplicação educacional chamada Quiz
+Computacional para prática de conhecimentos básicos de Computação por meio de questões de múltipla
+escolha."
 
-## Clarifications
+## Esclarecimentos
 
-### Session 2026-09-26
+### Sessão 2026-09-26
 
-- Q: O estudante pode alterar a alternativa selecionada antes de confirmar a resposta, e é permitido navegar de volta para questões anteriores já respondidas? → A: Seleção livre da alternativa antes da confirmação; resposta torna-se definitiva após confirmar; navegação estritamente para a frente.
-- Q: Ao exibir o feedback de uma resposta incorreta, a aplicação deve indicar apenas que a resposta foi incorreta ou deve também revelar qual era a alternativa correta? → A: Indicar resposta incorreta e revelar a alternativa correta na própria tela de feedback.
-- Q: Ao reiniciar o quiz (ou iniciar uma nova tentativa), a ordem das 10 questões e das 4 alternativas deve permanecer fixa ou ser embaralhada (randomizada)? → A: Manter a ordem estática/fixa original das questões e alternativas a cada reinício.
+- P: O estudante pode reiniciar o quiz durante uma tentativa em andamento? → R: Permitir reinício apenas
+  após a tela de resultado final.
 
-## User Scenarios & Testing *(mandatory)*
+## Cenários de Usuário e Testes *(obrigatório)*
 
-### User Story 1 - Responder Questões do Quiz (Priority: P1)
+### História de Usuário 1 - Responder ao quiz (Prioridade: P1)
 
-Como estudante, quero visualizar e responder questões de múltipla escolha sobre conhecimentos básicos de Computação, uma por vez, recebendo feedback imediato após cada resposta, para praticar e fixar meu aprendizado.
+Como estudante, quero iniciar o quiz e responder uma questão de cada vez para praticar conhecimentos
+básicos de Computação.
 
-**Why this priority**: Esta é a funcionalidade principal da aplicação educacional (MVP). Sem a apresentação das questões e o feedback imediato, a aplicação não cumpre seu objetivo pedagógico fundamental.
+**Por que esta prioridade**: responder às questões é o valor central da aplicação e, isoladamente, já
+permite a prática educacional.
 
-**Independent Test**: Pode ser testada iniciando o quiz, selecionando uma alternativa na primeira questão, confirmando a resposta, verificando o feedback de acerto/erro e avançando para a questão seguinte.
+**Teste independente**: um estudante inicia o quiz, responde uma questão de quatro alternativas,
+confirma a seleção e recebe o feedback correspondente.
 
-**Acceptance Scenarios**:
+**Cenários de aceitação**:
 
-1. **Given** que o estudante inicia o quiz, **When** a questão é carregada na tela, **Then** a aplicação exibe o enunciado e exatamente 4 alternativas de resposta sem revelar previamente qual é a resposta correta.
-2. **Given** que o estudante selecionou uma das alternativas, **When** ele altera a seleção antes de confirmar, **Then** a aplicação atualiza o destaque para a nova alternativa selecionada.
-3. **Given** que o estudante confirmou uma alternativa, **When** a resposta é processada, **Then** a aplicação exibe o feedback visual informando se está correta ou incorreta (destacando claramente a alternativa correta em caso de erro), trava a resposta de forma definitiva e habilita o botão para avançar para a próxima questão sem permitir o retorno às anteriores.
-
----
-
-### User Story 2 - Visualizar Resultado Final e Desempenho (Priority: P2)
-
-Como estudante, quero visualizar o resumo do meu desempenho ao finalizar as 10 questões, observando a quantidade de acertos, erros e o percentual de aproveitamento, para avaliar meu nível de conhecimento em Computação.
-
-**Why this priority**: Permite que o estudante compreenda o resultado consolidado do seu treino após passar por todas as questões.
-
-**Independent Test**: Pode ser testada completando a resposta das 10 questões em sequência e verificando se a tela final exibe o número exato de acertos, erros e a porcentagem calculada corretamente.
-
-**Acceptance Scenarios**:
-
-1. **Given** que o estudante respondeu e confirmou a 10ª (última) questão, **When** ele avança na tela, **Then** a aplicação apresenta a tela de resultados exibindo o total de acertos, total de erros e o percentual de acertos (ex: 8 acertos, 2 erros, 80% de acerto).
+1. **Dado** que o estudante está na tela inicial, **quando** inicia o quiz, **então** visualiza a
+   primeira de 10 questões, seu enunciado e exatamente quatro alternativas.
+2. **Dado** que uma questão é exibida, **quando** o estudante seleciona uma alternativa e confirma a
+   resposta, **então** recebe a indicação de que ela está correta ou incorreta.
+3. **Dado** que nenhuma alternativa foi selecionada, **quando** o estudante tenta confirmar a resposta,
+   **então** a aplicação solicita uma seleção e não registra uma resposta.
 
 ---
 
-### User Story 3 - Reiniciar o Quiz (Priority: P3)
+### História de Usuário 2 - Avançar entre questões (Prioridade: P2)
 
-Como estudante, quero poder reiniciar o quiz a partir da tela de resultados para tentar novamente e melhorar minha pontuação.
+Como estudante, quero avançar para a próxima questão somente após receber o feedback para concluir a
+prática em uma sequência clara.
 
-**Why this priority**: Oferece a reutilização imediata da aplicação sem necessidade de recarregar a página manualmente.
+**Por que esta prioridade**: mantém o fluxo pedagógico de resposta seguida de feedback e possibilita
+completar todas as questões.
 
-**Independent Test**: Pode ser testada clicando no botão "Reiniciar Quiz" na tela de resultados e confirmando que o quiz retorna à questão 1 com pontuação e histórico zerados.
+**Teste independente**: após confirmar uma resposta, o estudante recebe feedback, avança e encontra a
+questão seguinte; a posição no quiz é atualizada até a décima questão.
 
-**Acceptance Scenarios**:
+**Cenários de aceitação**:
 
-1. **Given** que o estudante está na tela de resultados finais, **When** clica no botão "Reiniciar Quiz", **Then** a aplicação reinicia a sessão, zera a pontuação e exibe novamente a primeira questão do quiz na sua ordem estática original.
+1. **Dado** que o estudante recebeu feedback de uma questão que não é a última, **quando** avança,
+   **então** a próxima questão é exibida sem alterar respostas já registradas.
+2. **Dado** que o estudante está na décima questão e confirma uma resposta, **quando** avança,
+   **então** a aplicação apresenta o resultado final em vez de uma nova questão.
 
 ---
 
-### Edge Cases
+### História de Usuário 3 - Consultar resultado e reiniciar (Prioridade: P3)
 
-- **Tentativa de confirmar sem selecionar opção**: Se o estudante clicar em confirmar resposta sem ter selecionado nenhuma das 4 alternativas, o sistema MUST manter o botão de confirmação desabilitado ou impedir a ação, solicitando que uma alternativa seja escolhida.
-- **Tentativa de navegação direta ou de retorno**: O fluxo do quiz é estritamente sequencial e irreversível (questão 1 até 10). O estudante não pode avançar para a próxima questão sem confirmar a atual e não pode voltar para revisar ou alterar questões já confirmadas.
-- **Interrupção no meio do quiz**: Caso o estudante feche ou recarregue a página antes da 10ª questão, a sessão atual é descartada e um novo quiz é iniciado a partir da 1ª questão.
+Como estudante, quero consultar meu desempenho ao fim do quiz e reiniciá-lo para continuar praticando.
 
-## Requirements *(mandatory)*
+**Por que esta prioridade**: o resultado permite compreender o desempenho e o reinício torna possível
+realizar novas tentativas sem cadastro.
 
-### Functional Requirements
+**Teste independente**: após responder as 10 questões, o estudante visualiza acertos, erros e percentual
+de acertos; ao reiniciar, uma nova tentativa começa sem dados da tentativa anterior.
 
-- **FR-001**: O sistema MUST disponibilizar um conjunto de 10 questões focadas em conhecimentos básicos de Computação dispostas em uma ordem fixa.
-- **FR-002**: O sistema MUST exibir uma única questão por vez na interface do usuário.
-- **FR-003**: Cada questão MUST conter exatamente quatro alternativas de resposta e um enunciado claro.
-- **FR-004**: O sistema MUST garantir que exatamente uma das quatro alternativas seja definida como a resposta correta por questão.
-- **FR-005**: O sistema MUST permitir a escolha e alteração da alternativa selecionada antes da confirmação, exigindo contudo que exatamente uma alternativa esteja selecionada no momento da confirmação.
-- **FR-006**: O sistema MUST fornecer feedback imediato informando se a resposta confirmada foi "correta" ou "incorreta", e no caso de resposta incorreta, MUST destacar visualmente a alternativa correta para orientação do estudante.
-- **FR-007**: O sistema MUST travar a resposta confirmada como definitiva, impedindo seu retorno ou alteração, e permitir avançar estritamente de forma sequencial para a próxima questão.
-- **FR-008**: O sistema MUST contabilizar automaticamente a quantidade de acertos e erros do estudante ao longo da sessão.
-- **FR-009**: Ao concluir todas as 10 questões, o sistema MUST apresentar uma tela de resultado exibindo a quantidade de acertos, a quantidade de erros e o percentual de acertos.
-- **FR-010**: O sistema MUST disponibilizar uma funcionalidade para reiniciar o quiz a partir da tela final, redefinindo o estado para a primeira questão mantendo a ordem estática das questões.
-- **FR-011**: O sistema MUST funcionar sem a exigência de cadastro, autenticação ou login de usuários nesta versão.
+**Cenários de aceitação**:
 
-### Key Entities
+1. **Dado** que o estudante concluiu as 10 questões, **quando** o resultado é exibido, **então** ele
+   vê as quantidades de acertos e erros e o percentual de acertos.
+2. **Dado** que o resultado final é exibido, **quando** o estudante escolhe reiniciar, **então** o quiz
+   volta à primeira questão com pontuação e respostas zeradas.
 
-- **Questao**: Representa a unidade de pergunta do quiz. Possui os atributos: texto do enunciado, lista com exatamente 4 alternativas e o identificador/índice da alternativa correta.
-- **Alternativa**: Representa cada opção de escolha associada a uma questão.
-- **SessaoQuiz**: Representa o estado atual do teste do estudante. Armazena: número da questão atual (1 a 10), contagem de acertos, contagem de erros, histórico de respostas e status da sessão (em andamento ou concluída).
+### Casos Limite
 
-## Success Criteria *(mandatory)*
+- O estudante não pode confirmar uma questão sem ter selecionado uma alternativa.
+- Após confirmar a resposta, a alternativa escolhida não pode ser alterada naquela tentativa.
+- Durante uma tentativa em andamento, o estudante não pode reiniciar o quiz nem descartar o progresso.
+- O percentual de acertos é calculado sobre as 10 questões e é exibido de forma compreensível, inclusive
+  quando o estudante acerta zero ou todas as questões.
+- Questões com quantidade diferente de quatro alternativas ou sem uma única resposta correta não podem
+  ser apresentadas ao estudante.
 
-### Measurable Outcomes
+## Requisitos *(obrigatório)*
 
-- **SC-001**: 100% das questões cadastradas e exibidas possuem exatamente 4 alternativas e apenas 1 resposta correta.
-- **SC-002**: O feedback de resposta (correta/incorreta) e o gabarito (em caso de erro) são exibidos na interface imediatamente após a confirmação do estudante.
-- **SC-003**: A pontuação final exibida na conclusão possui precisão matemática de 100% no cálculo de acertos, erros e percentual (fórmula: `(acertos / 10) * 100`).
-- **SC-004**: Um estudante consegue completar o ciclo completo de 10 questões e reiniciar o quiz em menos de 3 minutos sem falhas ou inconsistências de estado.
+### Requisitos Funcionais
 
-## Assumptions
+- **FR-001**: A aplicação DEVE permitir que o estudante inicie um quiz com exatamente 10 questões.
+- **FR-002**: A aplicação DEVE apresentar uma única questão por vez, incluindo enunciado e exatamente
+  quatro alternativas.
+- **FR-003**: Cada questão DEVE possuir exatamente uma alternativa correta.
+- **FR-004**: O estudante DEVE poder selecionar uma alternativa e confirmar sua resposta.
+- **FR-005**: A aplicação NÃO DEVE confirmar uma resposta sem uma alternativa selecionada e DEVE informar
+  ao estudante que a seleção é necessária.
+- **FR-006**: Depois da confirmação, a aplicação DEVE informar se a resposta está correta ou incorreta.
+- **FR-007**: A aplicação DEVE permitir o avanço para a próxima questão somente após a confirmação e o
+  feedback da questão atual.
+- **FR-008**: A aplicação DEVE calcular automaticamente os acertos, os erros e o percentual de acertos
+  da tentativa.
+- **FR-009**: Ao final da décima questão, a aplicação DEVE exibir a quantidade de acertos, a quantidade
+  de erros e o percentual de acertos.
+- **FR-010**: A aplicação DEVE permitir que o estudante reinicie o quiz somente na tela de resultado
+  final, a partir da primeira questão e sem manter as respostas ou a pontuação da tentativa anterior.
+- **FR-011**: A primeira versão NÃO DEVE solicitar cadastro, autenticação nem identificação do estudante.
+- **FR-012**: A aplicação DEVE funcionar no navegador sem backend, banco de dados ou autenticação e DEVE
+  ser acessada por HTTP estático para carregar o arquivo JSON local; a abertura por `file://` não é
+  suportada.
+- **FR-013**: A interface DEVE adaptar-se a desktop e smartphone, mantendo textos e controles legíveis.
+- **FR-014**: Os controles DEVEM ser utilizáveis por teclado e apresentar foco visível; o feedback DEVE
+  conter texto compreensível e não depender somente de cores.
+- **FR-015**: Durante a tentativa, a interface DEVE informar a posição da questão atual no total de 10.
 
-- O quiz é uma aplicação cliente web responsiva voltada para estudantes, funcionando adequadamente em telas de computadores e dispositivos móveis.
-- O banco inicial de questões é estático e pré-definido com 10 perguntas fundamentais sobre Computação (ex.: conceitos de hardware, software, rede, lógica/algoritmos).
-- Nenhuma dependência externa complexa ou autenticação de backend é necessária para este escopo inicial.
+### Entidades Principais
+
+- **Questão**: item de avaliação composto por enunciado, quatro alternativas e a indicação de uma única
+  alternativa correta.
+- **Alternativa**: uma das quatro opções de resposta de uma questão.
+- **Tentativa de quiz**: sessão de um estudante que reúne respostas dadas, posição atual e resultados
+  calculados para as 10 questões.
+- **Resultado**: resumo final da tentativa, composto por quantidade de acertos, quantidade de erros e
+  percentual de acertos.
+
+## Critérios de Sucesso *(obrigatório)*
+
+### Resultados Mensuráveis
+
+- **SC-001**: Um estudante consegue iniciar uma tentativa e visualizar a primeira questão com quatro
+  alternativas em até 10 segundos após decidir começar.
+- **SC-002**: Em uma tentativa concluída, a aplicação apresenta exatamente 10 questões, uma por vez.
+- **SC-003**: Em 100% das tentativas concluídas, acertos mais erros totalizam 10 e o percentual exibido
+  corresponde à proporção de acertos sobre 10 questões.
+- **SC-004**: Em teste de aceitação, estudantes conseguem concluir o quiz, identificar o próprio resultado
+  e iniciar uma nova tentativa sem precisar criar ou acessar uma conta.
+
+## Premissas
+
+- O conjunto inicial de 10 questões será disponibilizado pela própria aplicação e aborda conhecimentos
+  básicos de Computação.
+- O estudante realiza uma tentativa individual em um único dispositivo; não há necessidade de salvar ou
+  recuperar tentativas nesta primeira versão.
+- A expressão "funcionar diretamente no navegador" significa uma aplicação sem backend, servida por HTTP
+  estático; abrir o arquivo HTML por `file://` não faz parte do escopo suportado.
+- Cada alternativa é apresentada com texto suficiente para que o estudante possa diferenciá-la das demais.
+- O escopo inicial não inclui cronômetro, histórico de tentativas, níveis de dificuldade, cadastro ou
+  autenticação.
